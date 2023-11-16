@@ -3,6 +3,10 @@ import { PrismaService } from '../prisma.service';
 import { Role, User }    from '@prisma/client';
 import ObjectID          from 'bson-objectid';
 
+
+
+
+
 @Injectable()
 export class UsersService {
 	constructor( private prisma: PrismaService ){}
@@ -10,6 +14,7 @@ export class UsersService {
 	// Create function
 	
 	async createUser( email: string, password: string, role: Role ): Promise<User>{
+		
 		
 		const newUser = await this.prisma.user.create( {
 			data: {
@@ -24,24 +29,27 @@ export class UsersService {
 	
 	// Read functions
 	
-	async findAll(): Promise<User[]>{
+	async findAll(): Promise<Pick<User, 'id'>[]>{
 		return this.prisma.user.findMany()
 	}
 	
-	async findById( id: string ){
+	async findById( id: string ): Promise<Pick<User, 'id' | 'email'>>{
 		if( !ObjectID.isValid( id ) ){
 			return null;
 		}
-		return this.prisma.user.findFirst( { where: { id } } );
+		return this.prisma.user.findFirst(
+			{ where: { id }
+		}
+			);
 	}
 	
-	async findByEmail( email: string ): Promise<User | null>{
+	async findByEmail( email: string ): Promise<Partial<User | null>>{
 		return this.prisma.user.findFirst( { where: { email: email } } )
 	}
 	
 	// Update function
 	
-	async updateUserByEmail( oldEmail: string, newEmail: string, newRole: Role ): Promise<User | null>{
+	async updateByEmail( oldEmail: string, newEmail: string, newRole: Role ): Promise<User | null>{
 		
 		// Check if new email is already in use
 		if( newEmail ){
@@ -81,5 +89,24 @@ export class UsersService {
 	}
 	
 	// Delete Function
+
+	async deleteByEmail(email: string) {
+
+
+		const user = await this.prisma.user.findFirst({ where: { email: email}})
+		
+		if(!user) {
+			return null
+		} else  {
+			await this.prisma.user.delete({
+				where: {
+					email: email
+				}
+			})
+			return user;
+		}
+		}
+		
+		
 	
 }
