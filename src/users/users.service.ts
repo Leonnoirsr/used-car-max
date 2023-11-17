@@ -9,7 +9,7 @@ import ObjectID          from 'bson-objectid';
 
 @Injectable()
 export class UsersService {
-	constructor( private prisma: PrismaService ){}
+	constructor(private prisma: PrismaService ){}
 	
 	// Create function
 	
@@ -29,11 +29,11 @@ export class UsersService {
 	
 	// Read functions
 	
-	async findAll(): Promise<Pick<User, 'id'>[]>{
+	async findAll(): Promise<User[]>{
 		return this.prisma.user.findMany()
 	}
 	
-	async findById( id: string ): Promise<Pick<User, 'id' | 'email'>>{
+	async findById( id: string ): Promise<User>{
 		if( !ObjectID.isValid( id ) ){
 			return null;
 		}
@@ -43,7 +43,7 @@ export class UsersService {
 			);
 	}
 	
-	async findByEmail( email: string ): Promise<Partial<User | null>>{
+	async findByEmail( email: string ): Promise<User>{
 		return this.prisma.user.findFirst( { where: { email: email } } )
 	}
 	
