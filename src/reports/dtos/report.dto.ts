@@ -1,7 +1,7 @@
 import { Expose} from 'class-transformer';
-import { Role, Report }  from '@prisma/client';
+import { Role }  from '@prisma/client';
 
-export class UserDto {
+export class ReportDto {
 	
 	@Expose()
 	id: number;
@@ -11,6 +11,5 @@ export class UserDto {
 	
 	@Expose()
 	role: Role
-	
 	
 }

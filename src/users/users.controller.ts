@@ -38,6 +38,7 @@ export class UsersController {
 	async createUser( @Body() body: CreateUserDto, @Session() session: any ): Promise<User>{
 		const { email, password, role } = body;
 		const user = await this.authService.signup( email, password, role )
+		console.log('Signed Up')
 		session.userid = user.id
 		
 		return user
@@ -47,6 +48,7 @@ export class UsersController {
 	async signIn( @Body() body: CreateUserDto, @Session() session: any ){
 		const { email, password } = body;
 		const user = await this.authService.signin( email, password )
+		console.log('Signed in')
 		session.userid = user.id
 		
 		return user
