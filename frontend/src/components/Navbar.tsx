@@ -1,47 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState }                  from 'react';
 import { Box, Link, Flex, Button, Heading } from '@chakra-ui/react';
+import { useModal } from '../hooks/useModal'
 
 interface NavbarProps {}
 
-const Navbar: React.FC<NavbarProps> = ({}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  
-  const onClose = () => setIsOpen(false);
-  const onOpen = () => setIsOpen(true);
-  
-  return (
-      <Flex
-          as="nav"
-          align="center"
-          justify="space-between"
-          wrap="wrap"
-          padding="1.5rem"
-          bg="blue.800"
-          color="yellow.300"
-      >
-        <Flex align="center" mr={5}>
-          <Heading as="h1" size="lg" letterSpacing={"-.1rem"}>
-            Used Car Max
-          </Heading>
-        </Flex>
-        
-        <Box
-            display="flex"
-            width="auto"
-            alignItems="center"
-            justifyContent="flex-end"
-            flexGrow={1}
-            color="white"
-        >
-          <Box marginLeft={2}>
-            <Link onClick={onOpen}>Sign Up</Link>
-          </Box>
-          <Box marginLeft={2}>
-            <Link href="/signin">Sign In</Link>
-          </Box>
-        </Box>
-      </Flex>
-  );
+const Navbar: React.FC<NavbarProps> = ( {} ) => {
+	
+	const [isSignUpOpen, toggleSignUpModal, SignUpModal] = useModal("Sign Up", "http://localhost:3001/api/auth/signup");
+	const [isSignInOpen, toggleSignInModal, SignInModal] = useModal("Sign In", "http://localhost:3001/api/auth/signin");
+	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+	
+	
+	return (
+		<Flex
+			as="nav"
+			align="center"
+			justify="space-between"
+			wrap="wrap"
+			padding="1.5rem"
+			bg="blue.800"
+			color="yellow.300"
+		>
+			<Flex align="center" mr={ 5 }>
+				<Heading as="h1" size="lg" letterSpacing={ "-.1rem" }>
+					Used Car Max
+				</Heading>
+			</Flex>
+			
+			<Box
+				display="flex"
+				width="auto"
+				alignItems="center"
+				justifyContent="flex-end"
+				flexGrow={ 1 }
+				color="white"
+			>
+				<Box marginLeft={ 2 }>
+					<Link onClick={(e) => {e.preventDefault(); toggleSignUpModal();}} href="/signup">Sign Up</Link>
+				</Box>
+				<Box marginLeft={ 2 }>
+					{isUserLoggedIn ? (
+						<Link onClick={() => {}}>Sign Out</Link>
+					) : (
+						 <Link onClick={(e) => {e.preventDefault(); toggleSignInModal();}} href="/signin">Sign In</Link>
+					 )}
+				</Box>
+			</Box>
+			
+			<SignUpModal />
+			<SignInModal />
+		
+		</Flex>
+	);
 };
 
 export default Navbar;

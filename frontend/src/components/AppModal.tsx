@@ -13,28 +13,43 @@ import {
 	ModalFooter
 }                          from '@chakra-ui/react';
 
+import axios from 'axios';
+
 interface AppModalProps {
 	isOpen: boolean,
+	onClose: () => void,
 	title: string,
 	primary: string,
-	secondary: string
+	secondary: string,
+	route: string,
+	onSignIn: () => void
 }
 
-const AppModalDefaultProps: AppModalProps = {
-	isOpen:    false,
-	title:     '',
-	primary:   '',
-	secondary: ''
-}
 
 const AppModal: React.FC<AppModalProps> = ( props ) => {
 	
-	const [ isOpen, setIsOpen ] = useState( false );
-	const onClose               = () => setIsOpen( false );
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	
+	
+	const handlePrimaryClick =  async () => {
+	try {
+		const response = await axios.post(props.route, {
+			email,
+			password
+		});
+		if(response.status === 200) {
+			props.onSignIn();
+		}
+		props.onClose()
+	} catch (error) {
+		console.error('There was an error!', error);
+	}
+	}
 	
 	return (
 		<>
-			<Modal isOpen={ isOpen } onClose={ onClose }>
+			<Modal isOpen={ props.isOpen } onClose={ props.onClose }>
 				<ModalOverlay/>
 				<ModalContent>
 					<ModalHeader>{ props.title }</ModalHeader>
@@ -42,20 +57,20 @@ const AppModal: React.FC<AppModalProps> = ( props ) => {
 					<ModalBody>
 						<FormControl id='email'>
 							<FormLabel>Email Address</FormLabel>
-							<Input type='email'/>
+							<Input type='email' value={email} onChange={e => setEmail(e.target.value)}/>
 						</FormControl>
 						
 						<FormControl id='password' mt={ 4 }>
 							<FormLabel>Password</FormLabel>
-							<Input type='email'/>
+							<Input type='email' value={password} onChange={e => setPassword(e.target.value)}/>
 						</FormControl>
 					</ModalBody>
 					
 					<ModalFooter>
-						<Button colorScheme='blue' mr={ 3 } onClick={ onClose }>
+						<Button colorScheme='blue' mr={ 3 } onClick={handlePrimaryClick}>
 							{ props.primary }
 						</Button>
-						<Button colorScheme='blue' mr={ 3 } onClick={ onClose }>
+						<Button colorScheme='blue' mr={ 3 } onClick={props.onClose}>
 							{ props.secondary }
 						</Button>
 					</ModalFooter>
@@ -65,7 +80,4 @@ const AppModal: React.FC<AppModalProps> = ( props ) => {
 	);
 }
 
-export {
-	AppModal,
-	AppModalDefaultProps,
-};
+export default AppModal
