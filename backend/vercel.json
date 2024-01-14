@@ -3,7 +3,7 @@
   "name": "used-car-max",
   "builds": [
     {
-      "src": "src/main.ts",
+      "src": "dist/main.js",
       "use": "@vercel/node",
       "config": {
         "maxLambdaSize": "50mb"
@@ -13,7 +13,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "src/main.ts",
+      "dest": "dist/main.js",
       "methods": [
         "GET",
         "POST",
