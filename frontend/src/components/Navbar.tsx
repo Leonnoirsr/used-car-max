@@ -5,9 +5,9 @@ import { useModal } from '../hooks/useModal'
 interface NavbarProps {}
 
 const Navbar: React.FC<NavbarProps> = ( {} ) => {
-	
-	const [isSignUpOpen, toggleSignUpModal, SignUpModal] = useModal("Sign Up", "http://localhost:3001/api/auth/signup");
-	const [isSignInOpen, toggleSignInModal, SignInModal] = useModal("Sign In", "http://localhost:3001/api/auth/signin");
+
+	const [isSignUpOpen, toggleSignUpModal, SignUpModal] = useModal("Signz Up", `${process.env.REACT_APP_API_BASE_URL}/api/auth/signup`);
+	const [isSignInOpen, toggleSignInModal, SignInModal] = useModal("Signz In", `${process.env.REACT_APP_API_BASE_URL}/api/auth/signin`);
 	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 	
 	
