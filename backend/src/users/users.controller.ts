@@ -61,7 +61,7 @@ export class UsersController {
 	}
 	
 	@Get( '/users' )
-	async findAll(): Promise<Pick<User, 'id'>[]>{
+	async findAll(): Promise<User[]>{
 		return this.usersService.findAll();
 	}
 	
