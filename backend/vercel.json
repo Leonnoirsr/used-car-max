@@ -4,10 +4,7 @@
   "builds": [
     {
       "src": "dist/main.js",
-      "use": "@vercel/node",
-      "config": {
-        "maxLambdaSize": "50mb"
-      }
+      "use": "@vercel/node"
     }
   ],
   "routes": [
@@ -19,8 +16,12 @@
         "POST",
         "PUT",
         "DELETE",
+        "PATCH",
         "OPTIONS"
-      ]
+      ],
+      "headers": {
+        "Access-Control-Allow-Origin": "*"
+      }
     }
   ],
   "env": {

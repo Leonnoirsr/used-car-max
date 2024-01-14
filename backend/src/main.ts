@@ -1,13 +1,10 @@
 import { NestFactory }    from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule }      from './app.module';
-import { config } from 'dotenv';
 
 const cookieSession = require( 'cookie-session' );
 
 async function bootstrap(){
-
-	config()
 	const app = await NestFactory.create( AppModule );
 	app.use( cookieSession( {
 		keys: [ 'oatmeal' ]
@@ -19,8 +16,11 @@ async function bootstrap(){
 	)
 
 	app.enableCors({
-		origin: process.env.REACT_APP_API_BASE_URL,
+		origin: ['https://used-car-e5cuv2ghj-leonnoirsr.vercel.app', 'http://localhost:3000'],
+		methods: 'GET, HEAD, PUT, POST, DELETE, OPTIONS, PATCH',
 		credentials: true,
+		allowedHeaders:
+			'Origin, X-Requested-With, Content-Type, Accept, Authentication, Access-control-allow-credentials, Access-control-allow-headers, Access-control-allow-methods, Access-control-allow-origin, User-Agent, Referer, Accept-Encoding, Accept-Language, Access-Control-Request-Headers, Cache-Control, Pragma',
 	});
 	app.setGlobalPrefix( 'api' );
 	await app.listen( 3001 );
