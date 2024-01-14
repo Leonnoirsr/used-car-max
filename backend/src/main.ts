@@ -1,11 +1,15 @@
 import { NestFactory }    from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule }      from './app.module';
+import {ExpressAdapter} from "@nestjs/platform-express";
+import * as express from 'express';
 
 const cookieSession = require( 'cookie-session' );
 
 async function bootstrap(){
-	const app = await NestFactory.create( AppModule );
+	const server = express();
+	const app = await NestFactory.create( AppModule, new ExpressAdapter(server) );
+
 	app.use( cookieSession( {
 		keys: [ 'oatmeal' ]
 	} ) )
@@ -20,7 +24,8 @@ async function bootstrap(){
 		credentials: true,
 	});
 	app.setGlobalPrefix( 'api' );
-	await app.listen( 3001 );
+
+	await app.init();
 }
 
 bootstrap();
