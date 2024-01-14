@@ -16,11 +16,8 @@ async function bootstrap(){
 	)
 
 	app.enableCors({
-		origin: ['https://used-car-e5cuv2ghj-leonnoirsr.vercel.app', 'http://localhost:3000'],
-		methods: 'GET, HEAD, PUT, POST, DELETE, OPTIONS, PATCH',
+		origin: 'https://used-car-max.vercel.app/',
 		credentials: true,
-		allowedHeaders:
-			'Origin, X-Requested-With, Content-Type, Accept, Authentication, Access-control-allow-credentials, Access-control-allow-headers, Access-control-allow-methods, Access-control-allow-origin, User-Agent, Referer, Accept-Encoding, Accept-Language, Access-Control-Request-Headers, Cache-Control, Pragma',
 	});
 	app.setGlobalPrefix( 'api' );
 	await app.listen( 3001 );
