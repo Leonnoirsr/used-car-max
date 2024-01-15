@@ -3,18 +3,18 @@
   "name": "used-car-max",
   "builds": [
     {
-      "src": "src/main.ts",
+      "src": "dist/main.ts",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
+      "dest": "dist/main.ts",
       "headers": {
         "Access-Control-Allow-Origin": "https://used-car-max.vercel.app/",
         "Access-Control-Allow-Credentials": "true"
       },
-      "dest": "src/main.ts",
       "methods": [
         "GET",
         "POST",
