@@ -1,57 +1,56 @@
-import React, { useState }                  from 'react';
-import { Box, Link, Flex, Button, Heading } from '@chakra-ui/react';
-import { useModal } from '../hooks/useModal'
+import { FC } from 'react';
+import { Flex, Box, Spacer } from '@chakra-ui/react';
+import Logo from './Logo';
+import SearchBar from './SearchBar';
+import UserMenu from './UserMenu';
 
-interface NavbarProps {}
+interface NavbarProps {
+  isLoggedIn?: boolean;
+}
 
-const Navbar: React.FC<NavbarProps> = ( {} ) => {
+const Navbar: FC<NavbarProps> = () => {
+  return (
+    <Flex
+      as="nav"
+      align="center"
+      wrap="wrap"
+      padding="2rem"
+      bg="rgba(0, 0, 0, 0.0)"
+      color="white"
+      maxWidth="1500px"
+      margin="0 auto"
+      paddingX="1rem"
+      position="sticky"
+      top="0"
+      width="100%"
+      zIndex="10"
+    >
+      {/* Logo Section */}
+      <Box paddingLeft={'4'}>
+        <a href={'/'}>
+          <Logo image={{ src: './ucmlogo.svg', alt: 'Used Car Max Logo' }} />
+        </a>
+      </Box>
 
-	const [isSignUpOpen, toggleSignUpModal, SignUpModal] = useModal("Signz Up", `${process.env.REACT_APP_API_BASE_URL}/api/auth/signup`);
-	const [isSignInOpen, toggleSignInModal, SignInModal] = useModal("Signz In", `${process.env.REACT_APP_API_BASE_URL}/api/auth/signin`);
-	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-	
-	
-	return (
-		<Flex
-			as="nav"
-			align="center"
-			justify="space-between"
-			wrap="wrap"
-			padding="1.5rem"
-			bg="blue.800"
-			color="yellow.300"
-		>
-			<Flex align="center" mr={ 5 }>
-				<Heading as="h1" size="lg" letterSpacing={ "-.1rem" }>
-					Used Car Max
-				</Heading>
-			</Flex>
-			
-			<Box
-				display="flex"
-				width="auto"
-				alignItems="center"
-				justifyContent="flex-end"
-				flexGrow={ 1 }
-				color="white"
-			>
-				<Box marginLeft={ 2 }>
-					<Link onClick={(e) => {e.preventDefault(); toggleSignUpModal();}} href="/signup">Sign Up</Link>
-				</Box>
-				<Box marginLeft={ 2 }>
-					{isUserLoggedIn ? (
-						<Link onClick={() => {}}>Sign Out</Link>
-					) : (
-						 <Link onClick={(e) => {e.preventDefault(); toggleSignInModal();}} href="/signin">Sign In</Link>
-					 )}
-				</Box>
-			</Box>
-			
-			<SignUpModal />
-			<SignInModal />
-		
-		</Flex>
-	);
+      {/* Spacer will push the search bar and menu items to the center and right respectively */}
+      <Spacer />
+
+      {/* Search Bar Section */}
+      <Box flex={{ base: 1 }} justifySelf="center">
+        <SearchBar />
+      </Box>
+
+      <Spacer />
+
+      {/* Menu Items Section */}
+      <Flex justify="flex-end" align="center">
+        {/* Add your menu items here */}
+        <Box marginX="2"></Box>
+        <Box marginX="2"><UserMenu /></Box>
+        {/* ... other menu items */}
+      </Flex>
+    </Flex>
+  );
 };
 
 export default Navbar;

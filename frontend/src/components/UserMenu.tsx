@@ -1,0 +1,34 @@
+import { FC } from 'react';
+import { Icon } from '@chakra-ui/react';
+import { UnlockIcon, EditIcon } from '@chakra-ui/icons';
+import { GoPerson } from 'react-icons/go';
+import MenuWrapper from '../wrapper-components/MenuWrapper';
+
+interface NavMenuProps {
+  // Define your props here
+}
+
+const UserMenu: FC<NavMenuProps> = (props) => {
+
+
+  const MenuItems = [
+    {
+      id: 1,
+      title: 'Register',
+      MenuItemIcon: EditIcon,
+      route: '/register'
+    },
+    {
+      id: 2,
+      title: 'Log In',
+      MenuItemIcon: UnlockIcon,
+      route: '/login'
+    },
+  ];
+
+  return (
+    <MenuWrapper MenuItems={MenuItems} MenuIcon={{ type: GoPerson, name: 'avatar', color: 'black', size: '27px' }} />
+  );
+};
+
+export default UserMenu;
