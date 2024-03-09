@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Image } from '@chakra-ui/react';
+import { Container, Image, Select } from '@chakra-ui/react';
 
 interface HomePageProps {
   // Define your props here
@@ -7,8 +7,15 @@ interface HomePageProps {
 
 const HomePage: FC<HomePageProps> = (props) => {
   return (
-    <div>
-      <Image src={'./home.jpg'} />
+    <div style={{
+      backgroundImage: `url(/home.jpg)`,
+      height: '100vh', // Set the height to 100% of the viewport height
+      backgroundSize: 'cover', // Cover the entire div with the background image
+      backgroundPosition: 'center', // Center the background image
+    }}>
+      <Container>
+
+      </Container>
     </div>
   );
 };
