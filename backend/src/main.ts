@@ -1,31 +1,28 @@
-import { NestFactory }    from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { AppModule }      from './app.module';
-import {ExpressAdapter} from "@nestjs/platform-express";
+import { AppModule } from './app.module';
 import * as express from 'express';
 
-const cookieSession = require( 'cookie-session' );
+const cookieSession = require('cookie-session');
 
-async function bootstrap(){
-	const server = express();
-	const app = await NestFactory.create( AppModule, new ExpressAdapter(server) );
+async function bootstrap() {
+	const app = await NestFactory.create(AppModule);
 
-	app.use( cookieSession( {
-		keys: [ 'oatmeal' ]
-	} ) )
+	app.use(
+		cookieSession({
+			keys: ['oatmeal'],
+		}),
+	);
 	app.useGlobalPipes(
-		new ValidationPipe( {
-			whitelist: true
-		} )
-	)
+		new ValidationPipe({
+			whitelist: true,
+		}),
+	);
 
-	app.enableCors({
-		origin: 'https://used-car-max.vercel.app/',
-		credentials: true,
-	});
-	app.setGlobalPrefix( 'api' );
+	app.enableCors();
+	app.setGlobalPrefix('api');
 
-	await app.init();
+	await app.listen(3001);
 }
 
 bootstrap();
