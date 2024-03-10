@@ -1,18 +1,19 @@
 import './App.css';
 import Navbar from './components/Navbar';
 import HomePage from './pages/public-pages/HomePage';
+import RegistrationPage from './pages/public-pages/RegistrationPage';
+import LoginPage from './pages/public-pages/LoginPage';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import RegistrationPage from './pages/public-pages/RegistrationPage';
+import { Toaster } from 'react-hot-toast';
 import { Container } from '@chakra-ui/react';
-import { useLocation } from 'react-router';
-import LoginPage from './pages/public-pages/LoginPage';
 
 
 function App() {
 
   return (
     <Router>
+      <Toaster position="top-right" reverseOrder={false} />
       <Container maxW={'10xl'}>
         <Navbar />
         <Routes>

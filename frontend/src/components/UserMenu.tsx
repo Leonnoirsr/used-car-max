@@ -14,15 +14,15 @@ const UserMenu: FC<NavMenuProps> = (props) => {
   const MenuItems = [
     {
       id: 1,
-      title: 'Register',
-      MenuItemIcon: EditIcon,
-      route: '/register'
-    },
-    {
-      id: 2,
       title: 'Log In',
       MenuItemIcon: UnlockIcon,
       route: '/login'
+    },
+    {
+      id: 2,
+      title: 'Register',
+      MenuItemIcon: EditIcon,
+      route: '/register'
     },
   ];
 

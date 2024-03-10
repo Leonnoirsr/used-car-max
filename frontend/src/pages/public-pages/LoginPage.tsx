@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from 'react-router-dom';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import {
@@ -17,6 +19,8 @@ import {
 } from '@chakra-ui/react';
 
 
+
+
 interface LoginPageProps {
   // Define your props here
 }
@@ -28,6 +32,7 @@ interface FormValues {
 
 const LoginPage: FC<LoginPageProps> = (props) => {
 
+  const navigate = useNavigate();
   const schema = z.object({
     email: z.string().email({ message: 'Email is required' }).min(1, { message: 'Email is required' }),
     password: z.string().min(1, { message: 'Password is required' }),
@@ -40,12 +45,32 @@ const LoginPage: FC<LoginPageProps> = (props) => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
+
       const parsedData = schema.parse(data);
+
       const response = await axios.post('http://localhost:3001/api/auth/signin', parsedData);
+
+      toast.success('Login successful')
+
+      navigate('/');
+
       reset({ email: '', password: '' });
+
       console.log(response.data);
     } catch (error) {
+
+      if(axios.isAxiosError(error)) {
+
+        const message = error.response?.data.message || 'An unknown error occured'
+
+        toast.error( ' Login failed. ' + message);
+
+        console.table(`Account login failed: ${message}`);
+      }
+
+
       console.log(data);
+
       console.error(error);
     }
   };
@@ -101,6 +126,10 @@ const LoginPage: FC<LoginPageProps> = (props) => {
           >
             {isSubmitting ? 'Loading' : 'Sign In'}
           </Button>
+          <p style={{ marginTop: '5rem' }}>Don't have Used CarMax Account? <a href={'/register'} style={{
+            color: 'blue',
+            textDecoration: 'underline',
+          }}>Register</a></p>
         </Box>
       </Container>
     </div>
