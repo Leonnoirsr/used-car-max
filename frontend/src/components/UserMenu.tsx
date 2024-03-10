@@ -5,7 +5,7 @@ import { GoPerson } from 'react-icons/go';
 import MenuWrapper from '../wrapper-components/MenuWrapper';
 
 interface NavMenuProps {
-  // Define your props here
+  isOpen? : boolean
 }
 
 const UserMenu: FC<NavMenuProps> = (props) => {

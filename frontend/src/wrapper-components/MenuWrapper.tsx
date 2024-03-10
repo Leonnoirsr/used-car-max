@@ -4,10 +4,9 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider, Icon, IconButton, Button
+ IconButton,
+  Button,
+  useDisclosure
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
@@ -21,7 +20,7 @@ interface MenuItemProps {
 }
 
 interface MenuWrapperProps {
-  isOpen?: boolean,
+  // isOpen?: boolean,
   outlined?: boolean,
   MenuIcon?: {
     type: React.ElementType,
@@ -36,6 +35,7 @@ interface MenuWrapperProps {
 
 const MenuWrapper: FC<MenuWrapperProps> = (props) => {
 
+  const {  isOpen, onOpen, onClose } = useDisclosure();
   const ButtonComponent = props.MenuIcon ? IconButton : Button;
   const iconButtonProps = props.MenuIcon
     ? {
@@ -48,6 +48,8 @@ const MenuWrapper: FC<MenuWrapperProps> = (props) => {
   return (
     <Menu placement='top'>
       <MenuButton
+        onMouseOver={onOpen}
+        onMouseOut={onClose}
         as={ButtonComponent}
         {...iconButtonProps}
         variant={isOutlined}
