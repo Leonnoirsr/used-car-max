@@ -14,7 +14,7 @@ const Navbar: FC<NavbarProps> = () => {
 
   const location = useLocation();
 
-  return location.pathname === '/register' ? <Flex
+  return location.pathname === '/register' || location.pathname === '/login' ? <Flex
       as="nav"
       align="center"
       wrap="wrap"

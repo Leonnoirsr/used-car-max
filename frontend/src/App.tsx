@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RegistrationPage from './pages/public-pages/RegistrationPage';
 import { Container } from '@chakra-ui/react';
 import { useLocation } from 'react-router';
+import LoginPage from './pages/public-pages/LoginPage';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path={'/'} element={<HomePage />} />
           <Route path={'/register'} element={<RegistrationPage />} />
+          <Route path={'/login'} element={<LoginPage />} />
         </Routes>
       </Container>
     </Router>
