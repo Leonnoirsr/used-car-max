@@ -8,29 +8,35 @@ export declare class ReportsController {
     constructor(reportsService: ReportsService, usersService: UsersService);
     getReports(): Promise<{
         id: string;
+        year: number;
         make: string;
         model: string;
-        year: number;
+        type: string;
         mileage: number;
         price: number;
         userId: string;
+        imageUrl: string;
     }[]>;
     getUserReports(user: User): Promise<{
         id: string;
+        year: number;
         make: string;
         model: string;
-        year: number;
+        type: string;
         mileage: number;
         price: number;
         userId: string;
+        imageUrl: string;
     }[]>;
     sendReport(body: CreateReportDto, user: User): Promise<{
         id: string;
+        year: number;
         make: string;
         model: string;
-        year: number;
+        type: string;
         mileage: number;
         price: number;
         userId: string;
+        imageUrl: string;
     }>;
 }

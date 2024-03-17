@@ -1,16 +1,20 @@
 import {IsNumber, IsString, Min, Max} from 'class-validator';
 
 export class CreateReportDto {
+	
+	@IsNumber()
+	@Min(1970)
+	@Max(2030)
+	year: number;
+	
 	@IsString()
 	make: string;
 	
 	@IsString()
 	model: string;
 	
-	@IsNumber()
-	@Min(1970)
-	@Max(2030)
-	year: number;
+	@IsString()
+	type: string;
 	
 	@IsNumber()
 	@Min(0)
@@ -21,4 +25,10 @@ export class CreateReportDto {
 	@Min(0)
 	@Max(1000000)
 	price: number
+	
+	@IsString()
+	imageUrl: string;
+	
+	
+	
 }

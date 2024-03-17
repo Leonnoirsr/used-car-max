@@ -12,9 +12,11 @@ datasource db {
 
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName String
+  lastName  String
   email     String   @unique
   password  String
-  role Role @default(USER)
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   reports   Report[] @relation("UserReports")
@@ -23,19 +25,19 @@ model User {
 }
 
 model Report {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  make String
-  model String
-  year Int
-  mileage Int
-  price  Int
-  userId String @db.ObjectId
-  user   User   @relation("UserReports", fields: [userId], references: [id])
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  year     Int
+  make     String
+  model    String
+  type     String
+  mileage  Int
+  price    Int
+  userId   String  @db.ObjectId
+  user     User    @relation("UserReports", fields: [userId], references: [id])
+  imageUrl String? // Optional field to store the image URL
 
   @@map("Reports")
 }
-
-
 
 enum Role {
   USER

@@ -8,27 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersModule = void 0;
 const common_1 = require("@nestjs/common");
-const core_1 = require("@nestjs/core");
 const users_controller_1 = require("./users.controller");
 const users_service_1 = require("./users.service");
 const prisma_service_1 = require("../prisma.service");
-const auth_service_1 = require("../auth/auth/auth.service");
-const current_user_interceptor_1 = require("./interceptors/current-user.interceptor");
+const auth_module_1 = require("../auth/auth/auth.module");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
 exports.UsersModule = UsersModule = __decorate([
     (0, common_1.Module)({
+        imports: [(0, common_1.forwardRef)(() => auth_module_1.AuthModule)],
         controllers: [users_controller_1.UsersController],
-        providers: [
-            users_service_1.UsersService,
-            prisma_service_1.PrismaService,
-            auth_service_1.AuthService,
-            {
-                provide: core_1.APP_INTERCEPTOR,
-                useClass: current_user_interceptor_1.CurrentUserInterceptor
-            }
-        ]
+        providers: [users_service_1.UsersService, prisma_service_1.PrismaService],
     })
 ], UsersModule);
 //# sourceMappingURL=users.module.js.map

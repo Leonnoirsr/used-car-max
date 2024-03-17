@@ -31,8 +31,8 @@ let ReportsController = class ReportsController {
         return await this.reportsService.findReportsByUser(user.id);
     }
     async sendReport(body, user) {
-        const { make, model, year, mileage, price } = body;
-        return await this.reportsService.createReport(make, model, year, mileage, price, user);
+        const { year, make, model, type, mileage, price, imageUrl } = body;
+        return await this.reportsService.createReport(year, make, model, type, mileage, price, user, imageUrl);
     }
 };
 exports.ReportsController = ReportsController;
