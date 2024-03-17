@@ -24,7 +24,7 @@ export class ReportsController {
 	@Post( '/' )
 	@UseGuards(AuthGuard)
 	async sendReport( @Body() body: CreateReportDto, @CurrentUser() user: User ){
-		const { make, model, year, mileage, price } = body;
-		return await this.reportsService.createReport( make, model, year, mileage, price, user )
+		const { year,  make, model, type, mileage, price, imageUrl } = body;
+		return await this.reportsService.createReport( year, make, model, type, mileage, price, user, imageUrl )
 	}
 }

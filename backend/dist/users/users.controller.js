@@ -18,9 +18,9 @@ const users_service_1 = require("./users.service");
 const auth_service_1 = require("../auth/auth/auth.service");
 const create_user_dto_1 = require("./dtos/create-user.dto");
 const update_user_dto_1 = require("./dtos/update-user.dto");
-const serialize_interceptor_1 = require("../interceptors/serialize.interceptor");
-const user_dto_1 = require("./dtos/user.dto");
 const current_user_decorator_1 = require("./decorators/current-user.decorator");
+const jwt_guard_1 = require("../guards/jwt.guard");
+const sign_in_dto_1 = require("./dtos/sign-in.dto");
 let UsersController = class UsersController {
     constructor(usersService, authService) {
         this.usersService = usersService;
@@ -30,18 +30,13 @@ let UsersController = class UsersController {
         return user;
     }
     async createUser(body, session) {
-        const { email, password, role } = body;
-        const user = await this.authService.signup(email, password, role);
-        console.log('Signed Up');
+        const { firstName, lastName, email, password, role } = body, user = await this.authService.signup(firstName, lastName, email, password, role);
         session.userid = user.id;
         return user;
     }
     async signIn(body, session) {
-        const { email, password } = body;
-        const user = await this.authService.signin(email, password);
-        console.log('Signed in');
-        session.userid = user.id;
-        return user;
+        const { email, password } = body, user = await this.authService.signin(email, password), token = this.authService.generateJwtToken(user), { firstName, lastName } = user;
+        return { firstName, lastName, token };
     }
     async signOut(session) {
         console.log('Signed Out');
@@ -76,7 +71,8 @@ let UsersController = class UsersController {
 };
 exports.UsersController = UsersController;
 __decorate([
-    (0, common_1.Get)('/whoami'),
+    (0, common_1.Get)('/getuser'),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -95,7 +91,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.Session)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto, Object]),
+    __metadata("design:paramtypes", [sign_in_dto_1.SignInDto, Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "signIn", null);
 __decorate([
@@ -142,7 +138,7 @@ __decorate([
 ], UsersController.prototype, "deleteUser", null);
 exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('auth'),
-    (0, serialize_interceptor_1.Serialize)(user_dto_1.UserDto),
-    __metadata("design:paramtypes", [users_service_1.UsersService, auth_service_1.AuthService])
+    __metadata("design:paramtypes", [users_service_1.UsersService,
+        auth_service_1.AuthService])
 ], UsersController);
 //# sourceMappingURL=users.controller.js.map

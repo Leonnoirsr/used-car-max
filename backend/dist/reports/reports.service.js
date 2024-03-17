@@ -8,11 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReportsService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma.service");
-const bson_objectid_1 = require("bson-objectid");
+const bson_objectid_1 = __importDefault(require("bson-objectid"));
 let ReportsService = class ReportsService {
     constructor(prisma) {
         this.prisma = prisma;
@@ -20,18 +23,20 @@ let ReportsService = class ReportsService {
     isValidId(id) {
         return bson_objectid_1.default.isValid(id);
     }
-    async createReport(make, model, year, mileage, price, user) {
+    async createReport(year, make, model, type, mileage, price, user, imageUrl) {
         if (!this.isValidId(user.id)) {
             throw new Error('Invalid UserId');
         }
         const newReport = await this.prisma.report.create({
             data: {
+                year,
                 make,
                 model,
-                year,
+                type,
                 mileage,
                 price,
-                userId: user.id
+                userId: user.id,
+                imageUrl
             }
         });
         console.log('A new report has been created', newReport);

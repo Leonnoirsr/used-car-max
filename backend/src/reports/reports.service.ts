@@ -12,7 +12,7 @@ export class ReportsService {
 		return ObjectId.isValid( id )
 	}
 	
-	async createReport( make: string, model: string, year: number, mileage: number, price: number, user: User ): Promise<Report>{
+	async createReport( year: number, make: string, model: string, type: string,  mileage: number, price: number, user: User, imageUrl: string ): Promise<Report>{
 		
 		if( !this.isValidId( user.id ) ){
 			throw new Error('Invalid UserId');
@@ -20,12 +20,14 @@ export class ReportsService {
 		
 		const newReport = await this.prisma.report.create( {
 			data: {
+				year,
 				make,
 				model,
-				year,
+				type,
 				mileage,
 				price,
-				userId: user.id
+				userId: user.id,
+				imageUrl
 			}
 		} );
 		

@@ -50,13 +50,14 @@ const LoginPage: FC<LoginPageProps> = (props) => {
 
       const response = await axios.post('http://localhost:3001/api/auth/signin', parsedData);
 
+      localStorage.setItem('authToken', response.data.token);
+
       toast.success('Login successful')
 
       navigate('/');
 
       reset({ email: '', password: '' });
 
-      console.log(response.data);
     } catch (error) {
 
       if(axios.isAxiosError(error)) {

@@ -24,6 +24,8 @@ interface RegistrationPageProps {
 }
 
 interface FormValues {
+  firstName: string,
+  lastName: string,
   email: string,
   password: string,
   confirmPassword: string,
@@ -34,6 +36,17 @@ const RegistrationPage: FC<RegistrationPageProps> = (props) => {
   const navigate = useNavigate();
 
   const schema = z.object({
+
+    firstName: z.string().min(
+      1,
+      { message: 'First Name Is Required'}
+    ),
+
+    lastName: z.string().min(
+      1,
+      { message: 'Last Name Is Required'}
+    ),
+
     email: z.string().email(
       { message: 'Email is required' }).min(1,
       { message: 'Email is required' }),
@@ -62,7 +75,7 @@ const RegistrationPage: FC<RegistrationPageProps> = (props) => {
 
       const response = await axios.post('http://localhost:3001/api/auth/signup', parsedData);
 
-      reset({ email: '', password: '', confirmPassword: '' });
+      reset({ firstName: '', lastName: '',  email: '', password: '', confirmPassword: '' });
 
       toast.success('Account created successfully')
 
@@ -102,6 +115,22 @@ const RegistrationPage: FC<RegistrationPageProps> = (props) => {
             <br />
 
             <p>To continue create a Used CarMax Account</p>
+          </Box>
+
+          <Box>
+            <FormControl id="firstName" isRequired isInvalid={errors.firstName && true}>
+              <FormLabel htmlFor='firstName'>First Name</FormLabel>
+              <Input {...register('firstName')} id='firstName' type='text' />
+              {errors.firstName && <FormErrorMessage>{errors.firstName.message}</FormErrorMessage>}
+            </FormControl>
+          </Box>
+
+          <Box>
+            <FormControl id="lastName" isRequired isInvalid={errors.firstName && true}>
+              <FormLabel htmlFor='lastName'>First Name</FormLabel>
+              <Input {...register('lastName')} id='lastName' type='text' />
+              {errors.lastName && <FormErrorMessage>{errors.lastName.message}</FormErrorMessage>}
+            </FormControl>
           </Box>
 
           <Box>

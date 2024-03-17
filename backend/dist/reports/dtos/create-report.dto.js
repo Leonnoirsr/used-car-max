@@ -15,6 +15,12 @@ class CreateReportDto {
 }
 exports.CreateReportDto = CreateReportDto;
 __decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(1970),
+    (0, class_validator_1.Max)(2030),
+    __metadata("design:type", Number)
+], CreateReportDto.prototype, "year", void 0);
+__decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateReportDto.prototype, "make", void 0);
@@ -23,11 +29,9 @@ __decorate([
     __metadata("design:type", String)
 ], CreateReportDto.prototype, "model", void 0);
 __decorate([
-    (0, class_validator_1.IsNumber)(),
-    (0, class_validator_1.Min)(1970),
-    (0, class_validator_1.Max)(2030),
-    __metadata("design:type", Number)
-], CreateReportDto.prototype, "year", void 0);
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateReportDto.prototype, "type", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
@@ -40,4 +44,8 @@ __decorate([
     (0, class_validator_1.Max)(1000000),
     __metadata("design:type", Number)
 ], CreateReportDto.prototype, "price", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateReportDto.prototype, "imageUrl", void 0);
 //# sourceMappingURL=create-report.dto.js.map

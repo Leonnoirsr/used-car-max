@@ -13,12 +13,13 @@ const app_service_1 = require("./app.service");
 const users_module_1 = require("./users/users.module");
 const reports_module_1 = require("./reports/reports.module");
 const config_1 = require("@nestjs/config");
+const prisma_module_1 = require("./prisma.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [users_module_1.UsersModule, reports_module_1.ReportsModule, config_1.ConfigModule.forRoot()],
+        imports: [prisma_module_1.PrismaModule, users_module_1.UsersModule, reports_module_1.ReportsModule, config_1.ConfigModule.forRoot()],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
