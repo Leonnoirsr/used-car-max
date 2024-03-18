@@ -29,9 +29,19 @@ exports.AuthModule = AuthModule = __decorate([
             }),
             (0, common_1.forwardRef)(() => users_module_1.UsersModule),
         ],
-        providers: [auth_service_1.AuthService, users_service_1.UsersService, local_strategy_1.LocalStrategy, jwt_strategy_1.JwtStrategy],
-        controllers: [auth_controller_1.AuthController],
-        exports: [auth_service_1.AuthService, local_strategy_1.LocalStrategy],
+        providers: [
+            auth_service_1.AuthService,
+            users_service_1.UsersService,
+            local_strategy_1.LocalStrategy,
+            jwt_strategy_1.JwtStrategy
+        ],
+        controllers: [
+            auth_controller_1.AuthController
+        ],
+        exports: [
+            auth_service_1.AuthService,
+            local_strategy_1.LocalStrategy
+        ],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map

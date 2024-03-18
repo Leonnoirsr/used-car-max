@@ -7,15 +7,21 @@ import { first }                                              from 'rxjs';
 
 @Injectable()
 export class AuthService {
+
 	constructor(
 		private usersService: UsersService,
 		private jwtService: JwtService,
 	) {}
 
+
+
 	generateJwtToken(user: User) {
+
 		const payload = {  sub: user.id, email: user.email, role: user.role };
 		return this.jwtService.sign(payload);
+
 	}
+
 
 	async signup(firstName: string, lastName: string, email: string, password: string, Role) {
 		// See if email is in use
@@ -36,9 +42,13 @@ export class AuthService {
 		// return the user
 
 		return await this.usersService.createUser( firstName, lastName, email, hashedPassword, Role);
+
 	}
 
+
 	async signin(email: string, password: string) {
+
+
 		const user = await this.usersService.findByEmail(email);
 
 		if (!user) {
@@ -54,5 +64,7 @@ export class AuthService {
 
 			return user;
 		}
+
 	}
+	
 }

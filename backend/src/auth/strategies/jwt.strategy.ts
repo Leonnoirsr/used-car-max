@@ -12,6 +12,8 @@ interface JwtPayload {
 }
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
+
+
 	constructor(private authService: AuthService) {
 		super({
 			jwtFromRequest  : ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -19,8 +21,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 			secretOrKey     : 'oatmeal',
 		});
 	}
-	
+
 	async validate( payload: JwtPayload ) {
 		return payload
 	}
+
+	
 }
