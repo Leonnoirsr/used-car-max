@@ -31,8 +31,7 @@ const Navbar: FC<NavbarProps> = () => {
       margin="0 auto"
       paddingX="2rem"
       width="100%"
-      zIndex="10"
-    >
+      zIndex="10">
 
       {/* Logo Section */}
 
@@ -55,8 +54,7 @@ const Navbar: FC<NavbarProps> = () => {
       margin="0 auto"
       paddingX="2rem"
       width="100%"
-      zIndex="10"
-    >
+      zIndex="10">
 
       {/* Logo Section */}
 

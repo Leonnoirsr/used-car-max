@@ -1,5 +1,5 @@
 import { FC }                               from 'react';
-import { Container, Image, Select }         from '@chakra-ui/react';
+import { Container }         from '@chakra-ui/react';
 
 interface HomePageProps {
 
@@ -23,8 +23,7 @@ const HomePage: FC<HomePageProps> = (props) => {
       backgroundSize: 'cover', // Cover the entire div with the background image
       backgroundPosition: 'center', // Center the background image
 
-      }}
-    >
+      }}>
 
       <Container>
 
