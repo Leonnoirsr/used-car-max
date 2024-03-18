@@ -17,8 +17,7 @@ let CurrentUserInterceptor = class CurrentUserInterceptor {
         this.usersService = usersService;
     }
     async intercept(context, handler) {
-        const request = context.switchToHttp().getRequest();
-        const { userid } = request.session || {};
+        const request = context.switchToHttp().getRequest(), { userid } = request.session || {};
         if (userid) {
             request.currentUser = await this.usersService.findById(userid);
         }
