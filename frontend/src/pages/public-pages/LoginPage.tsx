@@ -3,7 +3,7 @@ import { FC }                                                                   
 import { zodResolver }                                                                                                from '@hookform/resolvers/zod';
 import { useNavigate }                                                                                                from 'react-router-dom';
 import { SubmitHandler, useForm }                                                                                     from 'react-hook-form';
-import { Box, Button, Container, FormControl, FormLabel,  FormErrorMessage, Heading, Input, FormHelperText, }         from '@chakra-ui/react';
+import { Box, Button, Container, FormControl, FormLabel,  FormErrorMessage, Heading, Input }                          from '@chakra-ui/react';
 import axios                                                                                                          from 'axios';
 import toast                                                                                                          from 'react-hot-toast';
 
@@ -50,9 +50,8 @@ const LoginPage: FC<LoginPageProps> = (props) => {
 
     try {
 
-      const parsedData    = schema.parse(data);
-
-      const response      = await axios.post('http://localhost:3001/api/auth/signin', parsedData);
+      const parsedData    = schema.parse(data),
+            response      = await axios.post('http://localhost:3001/api/auth/signin', parsedData);
 
       localStorage.setItem('authToken', response.data.token);
 
@@ -65,9 +64,9 @@ const LoginPage: FC<LoginPageProps> = (props) => {
 
     }
 
-    catch (error) {
+    catch ( error ) {
 
-      if (axios.isAxiosError(error)) {
+      if ( axios.isAxiosError(error) ) {
 
         const message = error.response?.data.message || 'An unknown error occurred'
 
@@ -78,9 +77,9 @@ const LoginPage: FC<LoginPageProps> = (props) => {
       }
 
 
-      console.log(data);
+      console.log( data );
 
-      console.error(error);
+      console.error( error );
 
     }
 
@@ -89,11 +88,7 @@ const LoginPage: FC<LoginPageProps> = (props) => {
 
   return (
 
-    <div
-      style={{
-      height: '100vh',
-      }}
-    >
+    <div style={{ height: '100vh' }}>
 
       <Container mt={'6rem'}>
 
@@ -135,26 +130,17 @@ const LoginPage: FC<LoginPageProps> = (props) => {
                 bg: '#003366', // Inverted background color on hover
                 color: 'white', // Inverted text color on hover
               },
-            }}
-          >
+            }}>
+
             {isSubmitting ? 'Loading' : 'Sign In'}
 
           </Button>
 
-          <p
-          style={{ marginTop: '5rem' }}>
-
+          <p style={{ marginTop: '5rem' }}>
             Don't have Used CarMax Account?
-
-            <a href={'/register'}
-            style={{
-            color: 'blue',
-            textDecoration: 'underline',
-             }}
-             >
-              Register
-            </a>
-
+                <a href={'/register'} style={{ color: 'blue', textDecoration: 'underline', }}>
+                  Register
+                </a>
           </p>
 
         </Box>

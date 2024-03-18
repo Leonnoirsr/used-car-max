@@ -1,24 +1,19 @@
-import { FC, ReactNode } from 'react';
-import {
-  Input,
-  Icon,
-  InputGroup,
-  InputLeftAddon,
-  InputRightAddon,
-  InputLeftElement,
-  InputRightElement,
-} from '@chakra-ui/react';
+import { FC, ReactNode }                                                                                        from 'react';
+import { Input, Icon, InputGroup, InputLeftAddon, InputRightAddon, InputLeftElement, InputRightElement,}        from '@chakra-ui/react';
 
 interface NonGroupedWrapperProps {
+
   type?: string,
   placeholder?: string,
   size?: 'xs' | 'sm' | 'md' | 'lg',
   textColor?: string,
   variant?: 'outline' | 'filled' | 'flushed' | 'unstyled',
   children?: ReactNode,
+
 }
 
 interface GroupedWrapperProps extends NonGroupedWrapperProps {
+
   grouped: boolean,
   addOns?: {
     leftAddOn?: boolean,
@@ -34,11 +29,13 @@ interface GroupedWrapperProps extends NonGroupedWrapperProps {
     }
   },
   children?: ReactNode,
+
 }
 
 type InputWrapperProps = NonGroupedWrapperProps | GroupedWrapperProps;
 
 const InputWrapper: FC<InputWrapperProps> = (props) => {
+
   if ('grouped' in props && props.grouped) {
 
     // props is of type GroupedWrapperProps
@@ -77,12 +74,15 @@ const InputWrapper: FC<InputWrapperProps> = (props) => {
         type={props.type}
         placeholder={props.placeholder}
         size={props.size}
-        variant={props.variant}
-      >
+        variant={props.variant}>
+
         {props.children}
+
       </Input>
     );
+
   }
+
 };
 
 export default InputWrapper;

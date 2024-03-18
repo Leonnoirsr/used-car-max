@@ -99,11 +99,8 @@ const RegistrationPage: FC<RegistrationPageProps> = (props) => {
 
   return (
 
-    <div
-      style={{
-        height: '100vh',
-      }}
-    >
+    <div style={{ height: '100vh', }}>
+
       <Container mt={'6rem'}>
 
 
@@ -168,14 +165,19 @@ const RegistrationPage: FC<RegistrationPageProps> = (props) => {
                 bg: '#003366', // Inverted background color on hover
                 color: 'white', // Inverted text color on hover
               },
-            }}
-          >
+            }}>
+
             {isSubmitting ? 'Loading' : 'Register'}
+
           </Button>
-          <p style={{ marginTop: '5rem' }}>Already have an account? <a href={'/login'} style={{
-            color: 'blue',
-            textDecoration: 'underline',
-          }}>Login</a></p>
+
+          <p style={{ marginTop: '5rem' }}>
+            Already have an account?
+              <a href={'/login'} style={{ color: 'blue', textDecoration: 'underline', }}>
+                Login
+              </a>
+           </p>
+
         </Box>
       </Container>
     </div>

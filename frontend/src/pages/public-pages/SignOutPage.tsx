@@ -17,11 +17,7 @@ const SignOutPage: FC<SignOutPageProps> = (props) => {
 
   return (
 
-    <div
-      style={{
-        height: '100vh',
-      }}
-    >
+    <div style={{ height: '100vh', }}>
 
       <Container mt={'6rem'}>
         <Center>
