@@ -18,7 +18,7 @@ const reports_service_1 = require("./reports.service");
 const create_report_dto_1 = require("./dtos/create-report.dto");
 const users_service_1 = require("../users/users.service");
 const current_user_decorator_1 = require("../users/decorators/current-user.decorator");
-const auth_guard_1 = require("../guards/auth.guard");
+const jwt_guard_1 = require("../guards/jwt.guard");
 let ReportsController = class ReportsController {
     constructor(reportsService, usersService) {
         this.reportsService = reportsService;
@@ -34,6 +34,10 @@ let ReportsController = class ReportsController {
         const { year, make, model, type, mileage, price, imageUrl } = body;
         return await this.reportsService.createReport(year, make, model, type, mileage, price, user, imageUrl);
     }
+    async deleteReport(id) {
+        console.log('Report Deleted');
+        return await this.reportsService.deleteById(id);
+    }
 };
 exports.ReportsController = ReportsController;
 __decorate([
@@ -43,22 +47,30 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ReportsController.prototype, "getReports", null);
 __decorate([
-    (0, common_1.Get)('/'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Get)('/user-reports'),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ReportsController.prototype, "getUserReports", null);
 __decorate([
-    (0, common_1.Post)('/'),
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Post)('/create-report'),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_report_dto_1.CreateReportDto, Object]),
     __metadata("design:returntype", Promise)
 ], ReportsController.prototype, "sendReport", null);
+__decorate([
+    (0, common_1.Delete)('/:id'),
+    (0, common_1.UseGuards)(jwt_guard_1.JwtGuard),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ReportsController.prototype, "deleteReport", null);
 exports.ReportsController = ReportsController = __decorate([
     (0, common_1.Controller)('reports'),
     __metadata("design:paramtypes", [reports_service_1.ReportsService, users_service_1.UsersService])

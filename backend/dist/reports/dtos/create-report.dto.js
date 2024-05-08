@@ -9,8 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateReportDto = void 0;
+exports.CreateReportDto = exports.CarType = void 0;
 const class_validator_1 = require("class-validator");
+var CarType;
+(function (CarType) {
+    CarType["SUV"] = "SUV";
+    CarType["TRUCK"] = "TRUCK";
+    CarType["CROSSOVER"] = "CROSSOVER";
+    CarType["SEDAN"] = "SEDAN";
+    CarType["COUPE"] = "COUPE";
+    CarType["CONVERTIBLE"] = "CONVERTIBLE";
+    CarType["LUXURY"] = "LUXURY";
+    CarType["SPORTS_CAR"] = "SPORTS_CAR";
+    CarType["MOTORCYCLE"] = "MOTORCYCLE";
+})(CarType || (exports.CarType = CarType = {}));
 class CreateReportDto {
 }
 exports.CreateReportDto = CreateReportDto;
@@ -45,6 +57,7 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateReportDto.prototype, "price", void 0);
 __decorate([
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateReportDto.prototype, "imageUrl", void 0);

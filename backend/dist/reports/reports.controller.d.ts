@@ -39,4 +39,15 @@ export declare class ReportsController {
         userId: string;
         imageUrl: string;
     }>;
+    deleteReport(id: string): Promise<{
+        id: string;
+        year: number;
+        make: string;
+        model: string;
+        type: string;
+        mileage: number;
+        price: number;
+        userId: string;
+        imageUrl: string;
+    }>;
 }

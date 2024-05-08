@@ -35,7 +35,9 @@ let UsersController = class UsersController {
         return user;
     }
     async signIn(body, session) {
-        const { email, password } = body, user = await this.authService.signin(email, password), token = this.authService.generateJwtToken(user), { firstName, lastName } = user;
+        console.log('Signed In');
+        const { email, password } = body;
+        const user = await this.authService.signin(email, password), token = this.authService.generateJwtToken(user), { firstName, lastName } = user;
         return { firstName, lastName, token };
     }
     async signOut(session) {
