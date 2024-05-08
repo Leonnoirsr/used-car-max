@@ -39,32 +39,7 @@ const HomePage: FC = () => {
         justifyContent: 'center', // Horizontally center the content
       }}
     >
-      <Container centerContent>
-        <Button colorScheme="teal" size="lg" onClick={onOpen}>
-          Sign Up
-        </Button>
-
-        {isOpen && (
-          <ModalWrapper
-            isOpen={isOpen}
-            title="Sign Up"
-            primaryButton="Register"
-            secondaryButton="Cancel"
-            hasForm={{ fields: signUpFormFields }}
-            formSchema={signUpSchema} // Pass the schema here
-            onClose={onClose}
-            hasQuery={{
-              method: 'POST',
-              route: 'http://localhost:3001/api/auth/signup',
-              onSuccess: (response) => {
-                console.log('Registration successful', response);
-                onClose(); // Close the modal on successful registration
-              },
-              onError: (error) => console.error('Registration failed', error),
-            }}
-          />
-        )}
-      </Container>
+     
     </div>
   );
 };

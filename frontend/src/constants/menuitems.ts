@@ -34,7 +34,7 @@ export const RegisteredUserMenu = [
     id: 2,
     title: "Create Report",
     MenuItemIcon: AiFillFolderAdd,
-    route: "/b",
+    route: "/create-report",
   },
   {
     id: 3,
@@ -59,7 +59,7 @@ export const AdminUserMenu = [
     id: 2,
     title: "Create Report",
     MenuItemIcon: AiFillFolderAdd,
-    route: "/b",
+    route: "/create-report",
   },
   {
     id: 3,

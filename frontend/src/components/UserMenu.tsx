@@ -25,6 +25,7 @@ const UserMenu: FC = (props) => {
   const switchMenu = (menuType: 'unregistered' | 'registered' | 'admin') => {
 
     let menuItems;
+    
     switch (menuType) {
 
       case 'registered':
