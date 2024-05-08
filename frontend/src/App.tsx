@@ -8,6 +8,7 @@ import RegistrationPage                                   from './pages/public-p
 import LoginPage                                          from './pages/public-pages/LoginPage';
 import SignOutPage                                        from './pages/public-pages/SignOutPage';
 import ReportsPage                                        from './pages/user-pages/ReportsPage';
+import CreateReportPage                                   from './pages/user-pages/CreateReportPage';
 
 
 function App() {
@@ -20,13 +21,16 @@ function App() {
 
       <Container maxW={'10xl'}>
         <Navbar />
+
         <Routes>
           <Route path={'/'} element={<HomePage />} />
           <Route path={'/register'} element={<RegistrationPage />} />
           <Route path={'/login'} element={<LoginPage />} />
           <Route path={'/signout'} element={<SignOutPage />} />
           <Route path={'/reports'} element={<ReportsPage />} />
+          <Route path={'/create-report'} element={<CreateReportPage />} />
         </Routes>
+
       </Container>
 
     </Router>

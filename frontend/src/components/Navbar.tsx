@@ -1,5 +1,4 @@
 import { FC }                       from 'react';
-import { Location }                 from 'react-router-dom';
 import { useLocation }              from 'react-router';
 import { Flex, Box, Spacer }        from '@chakra-ui/react';
 import Logo                         from './Logo';
@@ -47,6 +46,7 @@ const Navbar: FC<NavbarProps> = () => {
     : (<Flex
       as="nav"
       align="center"
+      justifyContent='center'
       wrap="wrap"
       padding="2rem"
       bg="rgba(0, 0, 0, 0.0)"
@@ -70,7 +70,7 @@ const Navbar: FC<NavbarProps> = () => {
 
       {/* Search Bar Section */}
 
-      <Box flex={{ base: 1 }} justifySelf="center">
+      <Box flex={{ base: 1 }} justifySelf="center" marginX='auto'>
         <SearchBar />
       </Box>
 
