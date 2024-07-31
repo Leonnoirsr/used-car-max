@@ -43,7 +43,11 @@ let ReportsService = class ReportsService {
         return newReport;
     }
     async findAll() {
-        return this.prisma.report.findMany();
+        return this.prisma.report.findMany({
+            include: {
+                user: true,
+            },
+        });
     }
     async findReportsByUser(userId) {
         return this.prisma.report.findMany({ where: { userId: userId } });

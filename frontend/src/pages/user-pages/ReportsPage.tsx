@@ -16,9 +16,11 @@ interface Report {
 
 const ReportsPage: FC = () => {
   const [reports, setReports] = useState<Report[]>([]);
+  const [firstName, setFirstName] = useState<string>('');
 
   useEffect(() => {
     fetchReports();
+    fetchUserDetails();
   }, []);
 
   const fetchReports = async () => {
@@ -32,6 +34,20 @@ const ReportsPage: FC = () => {
       setReports(response.data);
     } catch (error) {
       console.error('Error fetching reports:', error);
+    }
+  };
+
+  const fetchUserDetails = async () => {
+    const token = localStorage.getItem('authToken');
+    try {
+      const response = await axios.get('http://localhost:3001/api/auth/getuser', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setFirstName(response.data.firstName);
+    } catch (error) {
+      console.error('Error fetching user details:', error);
     }
   };
 
@@ -50,7 +66,6 @@ const ReportsPage: FC = () => {
   };
 
   return (
-
     reports.length > 0
       ? <Container maxW="container.xl" py="5">
         <Heading mb="6" colorScheme={'facebook'} color={'#003366'}>Your Reports</Heading>
@@ -78,12 +93,9 @@ const ReportsPage: FC = () => {
           ))}
         </SimpleGrid>
       </Container>
-
       : <Container maxW='container.xl' py='5'>
-          <Heading mb="6" colorScheme={'facebook'} color={'#003366'}>Your Reports</Heading>
-          <Text fontSize='md'>You Currently Have No Reports.</Text>
+          <Heading mb="6" colorScheme={'facebook'} color={'#003366'}>Good Morning {firstName}, You Currently Have No Reports.</Heading>
         </Container>
-
   );
 };
 

@@ -10,13 +10,7 @@ import toast                                                                    
 
 
 
-interface LoginPageProps {
-
-
-  // Define your props here
-
-
-}
+interface LoginPageProps {}
 
 interface FormValues {
 

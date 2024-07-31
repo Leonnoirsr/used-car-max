@@ -8,11 +8,7 @@ import axios                                                                    
 import toast                                                                                                 from 'react-hot-toast';
 
 
-interface RegistrationPageProps {
-
-  // Define your props here
-
-}
+interface RegistrationPageProps {}
 
 interface FormValues {
 

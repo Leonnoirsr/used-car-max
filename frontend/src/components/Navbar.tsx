@@ -79,10 +79,8 @@ const Navbar: FC<NavbarProps> = () => {
       {/* Menu Items Section */}
 
       <Flex justify="flex-end" align="center">
-        {/* Add your menu items here */}
         <Box marginX="2"></Box>
         <Box marginX="2"><UserMenu /></Box>
-        {/* ... other menu items */}
       </Flex>
 
 

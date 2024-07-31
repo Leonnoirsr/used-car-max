@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Post, Delete, Param, UseGuards } from '@nestjs/common';
-import { ReportsService } from './reports.service';
-import { CreateReportDto } from './dtos/create-report.dto';
-import { UsersService } from '../users/users.service';
-import { CurrentUser } from '../users/decorators/current-user.decorator';
-import { User } from '@prisma/client';
-import { JwtGuard } from 'src/guards/jwt.guard';
+import { ReportsService }                                        from './reports.service';
+import { CreateReportDto }                                       from './dtos/create-report.dto';
+import { UsersService }                                          from '../users/users.service';
+import { CurrentUser }                                           from '../users/decorators/current-user.decorator';
+import { User }                                                  from '@prisma/client';
+import { JwtGuard }                                              from 'src/guards/jwt.guard';
 
 @Controller('reports')
 export class ReportsController {

@@ -3,11 +3,7 @@ import { Box, Container, Heading, Center }                                      
 
 
 
-interface SignOutPageProps {
-
-  // Define your props here
-
-}
+interface SignOutPageProps {}
 
 
 

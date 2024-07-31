@@ -25,7 +25,7 @@ const UserMenu: FC = (props) => {
   const switchMenu = (menuType: 'unregistered' | 'registered' | 'admin') => {
 
     let menuItems;
-    
+
     switch (menuType) {
 
       case 'registered':
@@ -109,8 +109,7 @@ const UserMenu: FC = (props) => {
           menuType = 'unregistered';
 
       }
-
-      // Use the switchMenu function to dynamically set the MenuItems
+      
       switchMenu(menuType);
 
     }

@@ -2,11 +2,7 @@ import { FC }                 from 'react';
 import { Search2Icon }        from '@chakra-ui/icons';
 import InputWrapper           from '../wrapper-components/InputWrapper';
 
-interface SearchBarProps {
-
-  // Define your props here
-
-}
+interface SearchBarProps {}
 
 const SearchBar: FC<SearchBarProps> = (props) => {
 

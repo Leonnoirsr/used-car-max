@@ -1,31 +1,56 @@
-import { FC, useState } from 'react';
-import { Button, Container, useDisclosure } from '@chakra-ui/react';
-import ModalWrapper from '../../wrapper-components/ModalWrapper';
-import * as z from 'zod';
+import { FC, useEffect, useState }                          from 'react';
+import axios                                                from 'axios';
+import { Box, Container, Heading, SimpleGrid, Text, Image } from '@chakra-ui/react';
+
+
+interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
+
+interface Report {
+  id: string;
+  year: number;
+  make: string;
+  model: string;
+  type: string;
+  mileage: number;
+  price: number;
+  imageUrl?: string;
+  userId: string;
+  user?: User;
+}
 
 const HomePage: FC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [reports, setReports] = useState<Report[]>([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Define the form fields for the sign-up form
-  const signUpFormFields = [
-    { id: 1, name: 'firstName', label: 'First Name', type: 'text' },
-    { id: 2, name: 'lastName', label: 'Last Name', type: 'text' },
-    { id: 3, name: 'email', label: 'Email', type: 'email' },
-    { id: 4, name: 'password', label: 'Password', type: 'password' },
-  ];
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      setIsAuthenticated(true);
+      fetchUsersAndReports(token);
+    }
+  }, []);
 
-  // Define the Zod schema for the sign-up form
-  const signUpSchema = z.object({
-    firstName: z.string().min(1, "First Name is required"),
-    lastName: z.string().min(1, "Last Name is required"),
-    email: z.string().email("Invalid email address").min(1, "Email is required"),
-    password: z.string().min(8, "Password must be at least 8 characters"),
-    // If you have a confirmPassword field and want to ensure it matches password
-    confirmPassword: z.string().min(1, "Confirm Password is required"),
-  }).refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
+  const fetchUsersAndReports = async (token: string) => {
+    try {
+      const usersResponse = await axios.get('http://localhost:3001/api/auth/users', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const reportsResponse = await axios.get('http://localhost:3001/api/reports/', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const reportsWithUser = reportsResponse.data.map((report: Report) => {
+        const user = usersResponse.data.find((user: User) => user.id === report.userId);
+        return { ...report, user };
+      });
+      setReports(reportsWithUser);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   return (
     <div
@@ -35,11 +60,33 @@ const HomePage: FC = () => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
-        alignItems: 'center', // Vertically center the content
-        justifyContent: 'center', // Horizontally center the content
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
       }}
     >
-     
+      {isAuthenticated && (
+        <Container maxW="container.xl" position="absolute" top="50%" transform="translateY(-50%)" width="100%">
+          <Heading mb="6" color="white">All Reports</Heading>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing="4">
+            {reports.map((report) => (
+              <Box key={report.id} p="5" shadow="md" borderWidth="1px" borderRadius="lg" bg="white" opacity="0.9">
+                <Heading fontSize="xl">{report.make} {report.model}</Heading>
+                <Text mt="4">Year: {report.year}</Text>
+                <Text>Type: {report.type}</Text>
+                <Text>Mileage: {report.mileage.toLocaleString()} miles</Text>
+                <Text>Price: ${report.price.toLocaleString()}</Text>
+                {report.user ? (
+                  <Text>Owner: {report.user.firstName[0]}.{report.user.lastName}</Text>
+                ) : (
+                  <Text>Owner: Unknown</Text>
+                )}
+                {report.imageUrl && <Image src={report.imageUrl} alt="Car Image" mt="4" />}
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Container>
+      )}
     </div>
   );
 };
